@@ -8,10 +8,16 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 
 public class Board extends AppCompatActivity implements View.OnClickListener {
+    /**
+     * dogP is the point counter for Dogs and the catP is the point count for cats.
+     */
+    private int dogP, catP;
+
 
     /**
      *  Array of the buttons by cell position/coordinates.
@@ -117,23 +123,39 @@ public class Board extends AppCompatActivity implements View.OnClickListener {
         }
 
         roundCount++;
+        if (checkForWin()) {
+            if (roundCount % 2 == 0) {
+                gatosWin();
+            } else if (roundCount % 2 != 0) {
+                doggosWin();
+            }
+        }  else if (roundCount == 24) {
+            draw();
+        }
     }
 
     private boolean checkForWin() {
-        String[][] field = new String[5][5];
 
-        for (int i = 0; i < 5; i++) {
-            for (int j = 0; j < 5; j++) {
-
+        for (int i = 0; i < 6; i++) {
+            if (petCell[i][0].equals(petCell[i][1])
+                    && petCell[i][0].equals(petCell[i][2]) && petCell[i][0].equals(petCell[i][3])
+                    && !petCell[i][0].equals("")) {
+                return true;
             }
+
         }
 
-        for (int i = 0; i < 5; i++) {
-            if (field[i][0].equals(field[i][1]) && field[i][0].equals(field[i][1])) {
-
+        for (int i = 0; i < 4; i++) {
+            if (petCell[0][i].equals(petCell[1][i])
+                    && petCell[0][i].equals(petCell[2][i]) && petCell[0][i].equals(petCell[3][i]) && petCell[0][i].equals(petCell[4][i])
+                    && petCell[0][i].equals(petCell[5][i]) && !petCell[0][i].equals("")) {
+                return true;
             }
+
         }
-        return true;
+
+
+        return false;
     }
 
     /**
@@ -287,4 +309,41 @@ public class Board extends AppCompatActivity implements View.OnClickListener {
 
 
     }
+
+    private void doggosWin() {
+        dogP++;
+        Toast.makeText(this, "Doggos Litty!", Toast.LENGTH_SHORT).show();
+        updatePoints();
+        resetBoard();
+    }
+
+    private void gatosWin() {
+        catP++;
+        Toast.makeText(this, "Gatos Litty!", Toast.LENGTH_SHORT).show();
+        updatePoints();
+
+        resetBoard();
+    }
+
+    private void draw() {
+        Toast.makeText(this, "SRSLY A DRAW?", Toast.LENGTH_SHORT).show();
+        resetBoard();
+    }
+
+    private void updatePoints() {
+        txtViewP1.setText("Doggos : " + dogP);
+        txtViewP2.setText("Gatos : " + catP);
+    }
+
+    private void resetBoard() {
+
+
+        roundCount = 0;
+        Intent intent = new Intent();
+        setResult(RESULT_OK, intent);
+        finish();
+    }
+
+
+
 }
