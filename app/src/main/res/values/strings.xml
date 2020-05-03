@@ -1,0 +1,19 @@
+<resources>
+    <string name="app_name">DogCatToe</string>
+
+    <string name="title">DogCatToe</string>
+
+    <string name="instructions">Choose your pet!</string>
+
+    <string name="p1">Player 1: </string>
+
+    <string name="p2">Player 2: </string>
+
+    <string name="start_button">Start Game</string>
+
+    <string name="selection">" selected"</string>
+
+    <string name="new_images">"Get new pets"</string>
+
+
+</resources>
