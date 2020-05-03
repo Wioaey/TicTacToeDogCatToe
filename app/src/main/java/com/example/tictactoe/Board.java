@@ -337,7 +337,7 @@ public class Board extends AppCompatActivity implements View.OnClickListener {
 
     private void resetBoard() {
 
-        
+
         roundCount = 0;
         Intent intent = new Intent();
         setResult(RESULT_OK, intent);
